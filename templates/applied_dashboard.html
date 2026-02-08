@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Applications | HireNext</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cs.css') }}">
+</head>
+
+<body>
+<header class="navbar">
+    <div class="logo">Hire<span>Next</span></div>
+    <nav>
+        <a href="{{ url_for('jobs') }}">Jobs</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('applied_dashboard') }}">My Applications</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>My Applications</h2>
+
+    {% if applications and applications|length > 0 %}
+        {% for app in applications %}
+            <div class="card">
+                <h3>{{ app.title }}</h3>
+                <p><strong>Company:</strong> {{ app.company }}</p>
+                <p><strong>Status:</strong> {{ app.status|title }}</p>
+                <p><strong>Applied On:</strong> {{ app.applied_at.strftime('%Y-%m-%d %H:%M') if app.applied_at else 'Recent' }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You haven't applied to any jobs yet.</p>
+        <a href="{{ url_for('jobs') }}">Find Jobs</a>
+    {% endif %}
+</div>
+</body>
+</html>

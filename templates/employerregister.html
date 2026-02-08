@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Employee Registration</title>
+<!-- ✅ FIXED CSS PATH -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/employeereg.css') }}">
+</head>
+<body>
+<!-- ✅ CENTERED CONTAINER -->
+<div class="main-container">
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">Hire<span>Next</span></div>
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('employee_login') }}">Login</a>
+    </nav>
+  </header>
+
+  <!-- ✅ EMPLOYER AUTH SWITCH - CENTERED -->
+  <div class="employer-auth-switch">
+    <p>Already have an employer account? <a href="{{ url_for('employee_login') }}">Login</a></p>
+  </div>
+
+  <!-- ✅ MAIN REGISTRATION CARD - PERFECTLY CENTERED -->
+  <div class="card">
+    <h2>Employee Registration</h2>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="error-message" style="background:#ffdddd;padding:15px;border-radius:8px;margin-bottom:20px;border-left:4px solid #ff4444;">
+          {{ messages[0] }}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- REGISTRATION FORM -->
+    <form method="POST" action="{{ url_for('employerregister') }}" id="employeeForm">
+      
+      <!-- COMPANY INFO -->
+      <h3>🏢 Company Information</h3>
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Company Name *" required>
+      </div>
+      <div class="form-row">
+        <select name="company_type">
+          <option value="">Select Company Type</option>
+          <option>Private</option>
+          <option>Public</option>
+          <option>Startup</option>
+          <option>MNC</option>
+        </select>
+        <input type="text" name="industry" placeholder="Industry">
+      </div>
+
+      <!-- AUTHORIZED PERSON -->
+      <h3>👤 Authorized Person</h3>
+      <div class="form-row">
+        <input type="text" name="contact_person" placeholder="Full Name *">
+        <input type="text" name="designation" placeholder="Designation">
+      </div>
+      <div class="form-row">
+        <input type="email" name="email" placeholder="Company Email *" required>
+        <input type="tel" name="mobile" placeholder="Mobile *">
+      </div>
+
+      <!-- PASSWORD -->
+      <h3>🔐 Account Credentials</h3>
+      <div class="form-row">
+        <input type="password" name="password" placeholder="Password *" required>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password *" required>
+      </div>
+
+      <!-- TERMS & CAPTCHA -->
+      <h3>📋 Terms & Security</h3>
+      <div class="terms">
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">
+          I accept <span class="link" onclick="openTerms()">Terms & Conditions</span>
+        </label>
+      </div>
+
+      <!-- CAPTCHA -->
+      <div class="captcha-row">
+        <span id="captchaText"></span>
+        <button type="button" onclick="generateCaptcha()">↻</button>
+      </div>
+      <input type="text" id="captchaInput" name="captcha" placeholder="Enter Captcha *" required>
+
+      <!-- SUBMIT BUTTON -->
+      <button type="submit" class="btn">🚀 Register Company</button>
+    </form>
+  </div>
+</div>
+
+<!-- TERMS MODAL -->
+<div id="termsModal" class="modal">
+  <div class="modal-card">
+    <h3>📜 Terms & Conditions</h3>
+    <div class="terms-text">
+      <p>1. All company information must be accurate.</p>
+      <p>2. Company email only, personal emails not allowed.</p>
+      <p>3. Fake registrations will be rejected.</p>
+      <p>4. Admin approval required before posting jobs.</p>
+      <p>5. Uploaded documents must be genuine.</p>
+    </div>
+    <button onclick="closeTerms()" class="btn">Close</button>
+  </div>
+</div>
+
+<script>
+function openTerms() {
+  document.getElementById('termsModal').style.display = 'flex';
+}
+
+function closeTerms() {
+  document.getElementById('termsModal').style.display = 'none';
+}
+
+function generateCaptcha() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let captcha = '';
+  for (let i = 0; i < 6; i++) {
+    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  document.getElementById('captchaText').textContent = captcha;
+}
+generateCaptcha();
+
+document.getElementById("employeeForm").addEventListener('submit', function(e) {
+  const password = document.querySelector('input[name="password"]').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  const terms = document.getElementById('terms').checked;
+  const captchaInput = document.getElementById('captchaInput').value;
+  const captchaText = document.getElementById('captchaText').textContent;
+  
+  if (password !== confirmPassword) {
+    e.preventDefault();
+    alert('Passwords do not match!');
+    return;
+  }
+  
+  if (!terms) {
+    e.preventDefault();
+    alert('Please accept terms & conditions!');
+    return;
+  }
+  
+  if (captchaInput !== captchaText) {
+    e.preventDefault();
+    alert('Captcha does not match!');
+    generateCaptcha();
+    return;
+  }
+});
+</script>
+</body>
+</html>

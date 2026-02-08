@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply Job | HireNext</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cs.css') }}">
+    
+    <style>
+    .container{max-width:900px;margin:40px auto;}
+    .job-details{background:linear-gradient(135deg,#e7f1ff,#d4edda);padding:25px;border-radius:12px;margin-bottom:25px;border-left:5px solid #0d6efd;}
+    .job-title{color:#0d6efd;font-size:1.6em;margin:0 0 15px 0;}
+    .box{background:#fff;padding:25px;border-radius:12px;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+    h2,h3{color:#0d6efd;margin-top:0;}
+    input,textarea,select{width:100%;padding:15px;margin:12px 0;border:2px solid #e1e5e9;border-radius:8px;box-sizing:border-box;font-family:inherit;transition:all 0.3s;}
+    input:focus,textarea:focus,select:focus{outline:none;border-color:#0d6efd;box-shadow:0 0 0 3px rgba(13,110,253,0.1);}
+    textarea{resize:vertical;min-height:120px;}
+    .submit-btn{background:linear-gradient(135deg,#fd7e14,#e67300);color:#fff;border:none;padding:18px;border-radius:10px;cursor:pointer;font-size:18px;font-weight:600;width:100%;transition:all 0.3s;}
+    .submit-btn:hover{background:linear-gradient(135deg,#e67300,#d66000);transform:translateY(-2px);box-shadow:0 8px 25px rgba(253,126,20,0.4);}
+    .back-btn{color:#0d6efd;text-decoration:none;font-weight:600;padding:12px 24px;border:2px solid #0d6efd;border-radius:8px;display:inline-block;transition:all 0.3s;}
+    .back-btn:hover{background:#0d6efd;color:#fff;}
+    .verified-badge{background:#d4edda;color:#155724;padding:6px 12px;border-radius:20px;font-size:14px;font-weight:600;}
+    .file-info{color:#666;font-size:14px;margin-top:5px;}
+    </style>
+</head>
+<body>
+<header class="navbar">
+    <div class="logo">Hire<span>Next</span></div>
+    <nav>
+        <a href="{{ url_for('jobs') }}">Jobs</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('applied_dashboard') }}">My Applications</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>🚀 Apply for <strong>{{ job.title }}</strong></h2>
+
+    <!-- ✨ JOB DETAILS CARD -->
+    <div class="job-details box">
+        <h3>{{ job.company }} <span class="verified-badge">✔ Verified</span></h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:15px;">
+            <p><strong>💼 Role:</strong> {{ job.role or 'Not specified' }}</p>
+            <p><strong>📍 Location:</strong> {{ job.location or 'Remote' }}</p>
+            <p><strong>💰 Salary:</strong> {{ job.salary or 'Negotiable' }}</p>
+        </div>
+        <p style="margin-top:15px;color:#555;line-height:1.6;">
+            {{ job.description[:250] }}{% if job.description|length > 250 %}...{% endif %}
+        </p>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <div style="background:#d4edda;color:#155724;padding:15px;border-radius:8px;margin-bottom:20px;border-left:4px solid #28a745;">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!-- ✨ APPLICATION FORM -->
+    <form method="POST">
+        <div class="box">
+            <h3>📝 Your Application</h3>
+            
+            <input type="text" name="cover_letter" placeholder="✍️ Write a short cover letter (optional)" maxlength="500">
+            
+            <textarea name="resume_text" placeholder="📄 Paste your resume text, key skills & experience here..." rows="6" maxlength="2000"></textarea>
+            
+            <div style="margin:15px 0;">
+                <input type="file" name="resume_file" accept=".pdf,.doc,.docx" style="padding:15px;">
+                <div class="file-info">📎 Supports PDF, Word documents (Max 5MB)</div>
+            </div>
+        </div>
+        
+        <button type="submit" class="submit-btn">✅ Submit Application</button>
+    </form>
+
+    <a href="{{ url_for('jobs') }}" class="back-btn">← Back to Jobs</a>
+</div>
+</body>
+</html>

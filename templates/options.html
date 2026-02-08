@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Select Login Type</title>
+
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/options.css') }}">
+
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>Select user type</h2>
+
+        <div class="options">
+            <div class="select-box" onclick="selectRole('jobseeker', this)">
+    Job Seeker
+</div>
+
+<div class="select-box" onclick="selectRole('employee', this)">
+    Employee
+</div>
+
+        </div>
+
+        <button onclick="confirmSelection()">Confirm</button>
+
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/options.js') }}"></script>
+
+</body>
+</html>

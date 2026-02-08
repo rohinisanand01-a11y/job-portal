@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HireNext | Profile</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+body{
+  font-family:Poppins,Arial;
+  background:#f4f6fb;
+  margin:0;
+}
+.navbar{
+  background:#0f172a;
+  padding:15px 40px;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+}
+.navbar a{color:#fff;margin-left:20px;text-decoration:none}
+.container{
+  max-width:900px;
+  background:#fff;
+  margin:40px auto;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+.hidden{display:none}
+.row{display:flex;gap:10px}
+label{font-weight:600;margin-top:15px;display:block}
+input,select,textarea{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+textarea{resize:none}
+button{
+  margin-top:20px;
+  padding:10px 18px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+.submit-btn{background:#2563eb;color:#fff}
+.edit-btn{background:#16a34a;color:#fff}
+.delete-btn{background:#dc2626;color:#fff}
+.skill{
+  display:inline-block;
+  background:#e5e7eb;
+  padding:6px 10px;
+  border-radius:6px;
+  margin:5px;
+}
+.profile-box p{margin:10px 0}
+.profile-box h3{margin-top:20px;color:#1f2937}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div><b>Hire</b>Next</div>
+  <nav>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('jobs') }}">Jobs</a>
+    <a href="{{ url_for('profile') }}">Profile</a>
+    <a href="{{ url_for('applied_dashboard') }}">My Applications</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</nav>
+</header>
+
+<div class="container">
+<div id="noProfile" class="hidden">
+  <h2>No Profile Found</h2>
+  <p>Create your profile to apply for jobs</p>
+  <button class="submit-btn" onclick="openForm()">Create Profile</button>
+</div>
+
+
+<div id="profileView" class="hidden">
+  <h2>My Profile</h2>
+  <div class="profile-box" id="profileData"></div>
+
+  <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+  <button class="delete-btn" onclick="deleteProfile()">Delete Profile</button>
+</div>
+
+<form id="hireForm" class="hidden">
+
+<label>Full Name</label>
+<input type="text" name="fullName" required>
+
+<label>Phone Number</label>
+<div class="row">
+<select name="code" required>
+<option>+91</option>
+<option>+1</option>
+<option>+44</option>
+</select>
+<input type="tel" name="phone" pattern="[0-9]{10}" required>
+</div>
+
+<label>Email</label>
+<input type="email" name="email" required>
+
+<label>Date of Birth</label>
+<input type="date" name="dob" required>
+
+<label>Address</label>
+<textarea name="address" rows="3" required></textarea>
+
+<label>Skills (Minimum 3)</label>
+<input type="text" id="skillInput" placeholder="Type skill and press Enter">
+<div id="skillBox"></div>
+
+<label>Experience (Years)</label>
+<input type="number" name="experience" min="0" required>
+<label>Qualification</label>
+<input type="text" name="qualification" placeholder="BCA / B.Tech / MCA" required>
+
+<label>Profile Description</label>
+<textarea name="description" rows="4" placeholder="Brief professional summary" required></textarea>
+
+<label>Upload Resume (PDF only)</label>
+<input type="file" id="resumeInput" accept=".pdf" required>
+<p id="resumeName"></p>
+
+<button class="submit-btn" type="submit">Save Profile</button>
+</form>
+
+</div>
+
+<script>
+const noProfile = document.getElementById("noProfile");
+const profileView = document.getElementById("profileView");
+const profileDataBox = document.getElementById("profileData");
+const form = document.getElementById("hireForm");
+const skillInput = document.getElementById("skillInput");
+const skillBox = document.getElementById("skillBox");
+
+let skills = [];
+
+window.onload = loadProfile;
+
+
+skillInput.addEventListener("keydown", e=>{
+  if(e.key==="Enter"){
+    e.preventDefault();
+    if(skillInput.value && !skills.includes(skillInput.value)){
+      skills.push(skillInput.value);
+      renderSkills();
+      skillInput.value="";
+    }
+  }
+});
+
+function renderSkills(){
+  skillBox.innerHTML="";
+  skills.forEach(s=>{
+    skillBox.innerHTML+=`<span class="skill">${s}</span>`;
+  });
+}
+let resumeData = null;
+
+document.getElementById("resumeInput").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  if (file.type !== "application/pdf") {
+    alert("Only PDF resumes allowed");
+    e.target.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    resumeData = {
+      name: file.name,
+      content: reader.result
+    };
+    document.getElementById("resumeName").innerText = file.name;
+  };
+  reader.readAsDataURL(file);
+});
+
+
+form.onsubmit = e => {
+  e.preventDefault();
+
+  if (skills.length < 3) {
+    alert("Minimum 3 skills required");
+    return;
+  }
+
+  if (!resumeData) {
+    alert("Please upload resume");
+    return;
+  }
+
+  const data = Object.fromEntries(new FormData(form));
+  data.skills = skills;
+  data.resume = resumeData;
+
+  localStorage.setItem("hireProfile", JSON.stringify(data));
+  loadProfile();
+};
+
+
+function loadProfile(){
+  const data = JSON.parse(localStorage.getItem("hireProfile"));
+
+  noProfile.classList.add("hidden");
+  profileView.classList.add("hidden");
+  form.classList.add("hidden");
+
+  if(!data){
+    noProfile.classList.remove("hidden");
+    return;
+  }
+
+  profileView.classList.remove("hidden");
+  profileDataBox.innerHTML = `
+    <p><b>Name:</b> ${data.fullName}</p>
+ 
+    <p><b>Email:</b> ${data.email}</p>
+    <p><b>Phone:</b> ${data.code} ${data.phone}</p>
+  <h3>Address</h3>
+    <p>${data.address}</p>
+    <p><b>DOB:</b> ${data.dob}</p>
+    <p><b>Experience:</b> ${data.experience} years</p>
+   <p><b>Qualification:</b> ${data.qualification}</p>
+    <h3>Profile Description</h3>
+    <p>${data.description}</p>
+
+    <h3>Skills</h3>
+    ${data.skills.map(s=>`<span class="skill">${s}</span>`).join("")}
+<h3>Resume</h3>
+<a href="${data.resume.content}" target="_blank">
+  📄 ${data.resume.name}
+</a>
+
+  
+  `;
+}
+
+
+function openForm(){
+  noProfile.classList.add("hidden");
+  form.classList.remove("hidden");
+}
+
+function editProfile(){
+  const data = JSON.parse(localStorage.getItem("hireProfile"));
+
+  form.fullName.value = data.fullName;
+  form.qualification.value = data.qualification;
+  form.description.value = data.description;
+  form.phone.value = data.phone;
+  form.email.value = data.email;
+  form.dob.value = data.dob;
+  form.address.value = data.address;
+  form.experience.value = data.experience;
+
+  skills = data.skills;
+  renderSkills();
+
+  profileView.classList.add("hidden");
+  form.classList.remove("hidden");
+}
+
+function deleteProfile(){
+  if(confirm("Delete profile permanently?")){
+    localStorage.removeItem("hireProfile");
+    location.reload();
+  }
+}
+
+document.getElementById("profileForm").onsubmit = function(e) {
+  e.preventDefault();
+
+  const file = document.getElementById("resume").files[0];
+  const reader = new FileReader();
+
+  reader.onload = function() {
+    const profile = {
+      fullName: fullName.value,
+      email: email.value,
+      phone: phone.value,
+      skills: skills.value,
+      resume: reader.result // base64 PDF
+    };
+
+    localStorage.setItem("hireProfile", JSON.stringify(profile));
+    alert("Profile saved successfully");
+  };
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    reader.onload(); // save without resume
+  }
+};
+</script>
+
+</body>
+</html>

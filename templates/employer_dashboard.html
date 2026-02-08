@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Employer Dashboard | Amdox</title>
+<style>
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f6f9;
+}
+
+/* Sidebar */
+.sidebar{
+  width:230px;
+  height:100vh;
+  background:#0d6efd;
+  color:#fff;
+  position:fixed;
+}
+.sidebar h2{
+  text-align:center;
+  padding:15px;
+  background:#0b5ed7;
+  margin:0;
+}
+.sidebar a{
+  display:block;
+  padding:14px;
+  color:white;
+  text-decoration:none;
+}
+.sidebar a:hover, .sidebar a.active{
+  background:#fd7e14;
+}
+
+/* Main */
+.main{
+  margin-left:230px;
+  padding:20px;
+}
+
+.section{
+  display:none;
+  background:white;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,0.05);
+  margin-bottom:20px;
+}
+.section.active{
+  display:block;
+}
+.section h3{
+  margin-top:0;
+  color:#0d6efd;
+}
+
+.card{
+  border:1px solid #ddd;
+  padding:15px;
+  border-radius:6px;
+  margin-bottom:10px;
+}
+
+button{
+  padding:8px 14px;
+  border:none;
+  background:#fd7e14;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
+button.secondary{
+  background:#0d6efd;
+}
+button.danger{
+  background:#dc3545;
+}
+
+.add-job-btn{
+  padding:10px 20px;
+  border:none;
+  background:#28a745;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+.welcome {
+  background:#d4edda;
+  padding:20px;
+  border-radius:8px;
+  margin-bottom:20px;
+}
+
+.flash-message { 
+  background:#d1ecf1; 
+  padding:15px; 
+  border-radius:5px; 
+  margin-bottom:20px; 
+  border-left:4px solid #17a2b8; 
+}
+</style>
+</head>
+
+<body>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>HireNext Dashboard</h2>
+  <a href="#" onclick="showSection('profile')" class="active">👤 Profile</a>
+  <a href="#" onclick="showSection('jobs')">📋 Jobs</a>
+  <a href="#" onclick="showSection('applications')">📝 Applications</a>
+  <a href="{{ url_for('logout') }}">🚪 Logout</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- FLASH MESSAGES -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+      <div class="flash-message">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- WELCOME -->
+  <div class="welcome">
+    <h1>👋 Welcome back, {{ session.employer_name or profile.name or profile.company or 'Employer' }}!</h1>
+    <p>Manage your company profile, jobs, and applications here.</p>
+  </div>
+
+  <!-- ✅ SINGLE PROFILE SECTION ONLY -->
+  <div id="profile" class="section active">
+    <h3>Registration Details</h3>
+    <div class="card" style="padding:25px;">
+      {% if profile %}
+        <p><strong>🏢 Company Name:</strong> {{ profile.name or session.employer_name or 'submitha' }}</p>
+        <p><strong>📧 Email:</strong> {{ profile.email or session.employer_email or 'submitha@gmail.com' }}</p>
+        
+        {% if profile.mobile %}
+          <p><strong>📱 Mobile:</strong> {{ profile.mobile }}</p>
+        {% else %}
+          <p style="color:#28a745;"><em>📱 Add mobile in profile</em></p>
+        {% endif %}
+        
+        {% if profile.city %}
+          <p><strong>📍 City:</strong> {{ profile.city }}</p>
+        {% else %}
+          <p style="color:#28a745;"><em>📍 Add city in profile</em></p>
+        {% endif %}
+        
+        <p><strong>🆔 Employer ID:</strong> {{ profile.id or session.employer_id or '1' }}</p>
+      {% endif %}
+    </div>
+    
+    <!-- ✅ SINGLE CENTERED BUTTON -->
+    <div style="text-align:center; margin-top:25px; padding:20px 0;">
+      <a href="{{ url_for('employer_profile') }}" 
+         class="add-job-btn" 
+         style="display:inline-block; padding:14px 30px; font-size:16px; background:#28a745;">
+        ✏️ Edit Profile
+      </a>
+    </div>
+  </div>
+
+  <!-- JOBS -->
+  <!-- JOBS - SAFE VERSION (No created_at errors) -->
+<div id="jobs" class="section">
+  <h3>Manage Jobs ({{ jobs|length if jobs else 0 }} posted)</h3>
+  <a href="{{ url_for('post_job') }}" class="add-job-btn">+ Add New Job</a>
+  <br><br>
+  
+  {% if jobs and jobs|length > 0 %}
+    {% for job in jobs %}
+    <div class="card">
+      <h4>{{ job.title or 'Untitled Job' }}</h4>
+      <p><strong>🏢 Company:</strong> {{ job.company or profile.name or session.employer_name or 'Your Company' }}</p>
+      <p><strong>📍 Location:</strong> {{ job.location or 'Not specified' }}</p>
+      {% if job.salary %}<p><strong>💰 Salary:</strong> {{ job.salary }}</p>{% endif %}
+      {% if job.description %}
+      <p><strong>📄 Description:</strong> {{ job.description[:100] }}{% if job.description|length > 100 %}...{% endif %}</p>
+      {% endif %}
+      
+      <!-- ✅ SAFE Date Display -->
+      <p style="font-size:12px; color:#666;">
+        📅 Posted: {{ job.created_at.strftime('%Y-%m-%d %H:%M') if job.created_at else 'Today' }} | 
+        🆔 ID: {{ job.id }}
+      </p>
+      
+      <hr>
+      <div style="text-align:right;">
+        <a href="#" class="add-job-btn" style="background:#0d6efd; padding:8px 16px; font-size:14px;" onclick="alert('Edit coming soon!')">✏️ Edit</a>
+        <a href="#" class="add-job-btn" style="background:#dc3545; padding:8px 16px; font-size:14px;" onclick="if(confirm('Delete coming soon!')){}">🗑️ Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="card" style="text-align:center; padding:40px; background:#f8f9fa;">
+      <h4 style="color:#666;">📭 No jobs posted yet</h4>
+      <p style="color:#999;">Click "Add New Job" to get started!</p>
+      <a href="{{ url_for('post_job') }}" class="add-job-btn" style="margin-top:15px;">🚀 Post Your First Job</a>
+    </div>
+  {% endif %}
+</div>
+
+
+  <!-- APPLICATIONS -->
+<!-- APPLICATIONS - CORRECT SYNTAX -->
+<div id="applications" class="section">
+  <h3>Applications Received ({{ applications|length if applications else 0 }})</h3>
+  
+  {% if applications and applications|length > 0 %}
+    {% for app in applications %}
+    <div class="card">
+      <h4 style="margin-top:0;"><strong>{{ app.job_title or 'Job Application' }}</strong></h4>
+      <p><strong>👤 Applicant:</strong> {{ app.applicant_name or 'Anonymous' }}</p>
+      <p><strong>📧 Email:</strong> {{ app.applicant_email or 'Not available' }}</p>
+      {% if app.applicant_mobile %}
+      <p><strong>📱 Mobile:</strong> {{ app.applicant_mobile }}</p>
+      {% endif %}
+      <p><strong>📄 Status:</strong> 
+        <span style="color:#28a745; font-weight:bold;">{{ app.status|default('Pending') }}</span>
+      </p>
+      <p style="font-size:12px; color:#666;">
+        Applied: {{ app.applied_at.strftime('%Y-%m-%d %H:%M') if app.applied_at else 'Recently' }}
+      </p>
+      
+      <div style="text-align:right; margin-top:15px;">
+        <a href="{{ url_for('view_application', app_id=app.id) }}" 
+           class="add-job-btn" 
+           style="background:#0d6efd; padding:10px 20px; font-size:14px; text-decoration:none;">
+           👁️ View Application
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="card" style="text-align:center; padding:40px; background:#f8f9fa;">
+      <h4 style="color:#666;">📭 No applications received yet</h4>
+      <p style="color:#999;">💡 Post some jobs first, then candidates will apply!</p>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Dashboard loaded successfully!');
+});
+</script>
+</body>
+</html>

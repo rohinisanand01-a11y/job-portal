@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Post Job | Amdox</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+<style>
+body{ margin:0; font-family: Arial, Helvetica, sans-serif; background:#f4f6f9; }
+.container{ max-width: 700px; margin: 20px auto; background:white; padding:30px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.05); }
+.navbar{ background:#0d6efd; color:#fff; padding:15px; border-radius:8px 8px 0 0; margin:-30px -30px 20px -30px; }
+.navbar .logo{ font-size:24px; font-weight:bold; }
+.navbar .logo span{ color:#fd7e14; }
+h2{ color:#0d6efd; margin-top:0; }
+input, select, textarea{ width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:6px; box-sizing:border-box; }
+button{ padding:12px 20px; border:none; background:#fd7e14; color:white; border-radius:5px; cursor:pointer; width:100%; }
+button.back{ background:#6c757d; margin-bottom:10px; }
+button:hover{ opacity:0.9; }
+.flash{ padding:12px; margin-bottom:20px; border-radius:6px; }
+.flash-success{ background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
+.flash-error{ background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
+</style>
+</head>
+
+<body>
+<header class="navbar">
+  <div class="logo">Amdox<span>Jobs</span></div>
+</header>
+
+<div class="container">
+  <h2>Post a New Job</h2>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if 'success' in message.lower() or 'posted' in message.lower() %}
+        <div class="flash flash-success">{{ message }}</div>
+      {% else %}
+        <div class="flash flash-error">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <form method="POST">
+    <input type="text" name="title" placeholder="Job Title *" required>
+    
+    <select name="role" required>
+      <option value="">Select Job Role</option>
+      <option>Software Developer</option>
+      <option>UI/UX Designer</option>
+      <option>Data Analyst</option>
+      <option>Project Manager</option>
+      <option>Civil Engineer</option>
+    </select>
+
+    <input type="text" name="company" placeholder="Company Name *" required>
+    
+    <input type="text" name="location" placeholder="Location (City, Remote etc.) *" required>
+    
+    <textarea name="description" placeholder="Job Description (requirements, skills, responsibilities)" rows="6" required></textarea>
+
+    <input type="text" name="salary" placeholder="Salary (e.g. ₹5L - ₹10L, 50k-1L per month)">
+
+    <button type="button" class="back" onclick="window.location.href='/employer/dashboard'">← Back to Dashboard</button>
+    
+    <button type="submit">✅ Save Job</button>
+  </form>
+</div>
+</body>
+</html>

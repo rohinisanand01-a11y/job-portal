@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jobseeker Profile</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jobseekerprofile.css') }}">
+</head>
+
+<body>
+<div class="card">
+    <h2>{{ 'Edit Your Profile' if profile else 'Create Your Profile' }}</h2>
+    
+    {% if profile %}
+    <div style="background:#d4edda;padding:20px;border-radius:10px;margin-bottom:20px;border-left:5px solid #28a745;">
+        <h3>✅ Current Profile Info</h3>
+        <p><strong>Name:</strong> {{ profile.name or 'Not set' }}</p>
+        <p><strong>Mobile:</strong> {{ profile.mobile or 'Not set' }}</p>
+        <p><strong>Qualification:</strong> {{ profile.qualification }} - {{ profile.institute }}</p>
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('profile') }}" enctype="multipart/form-data">
+        <h3>Personal Information</h3>
+        <label>Profile Photo</label>
+        <input type="file" name="photo" accept="image/*">
+        
+        <input type="text" name="name" value="{{ profile.name if profile else '' }}" placeholder="Full Name *" required>
+        
+        <label>Date of Birth</label>
+        <input type="date" name="dob" value="{{ profile.dob if profile else '' }}">
+        
+        <select name="gender">
+            <option value="">Select Gender</option>
+            <option value="Male" {{ 'selected' if profile and profile.gender == 'Male' }}>Male</option>
+            <option value="Female" {{ 'selected' if profile and profile.gender == 'Female' }}>Female</option>
+            <option value="Other" {{ 'selected' if profile and profile.gender == 'Other' }}>Other</option>
+        </select>
+        
+        <input type="email" name="email" value="{{ profile.email if profile else '' }}" placeholder="Email ID *" required>
+        <input type="text" name="mobile" value="{{ profile.mobile if profile else '' }}" placeholder="Mobile Number *" required>
+        <textarea name="address" placeholder="Full Address *">{{ profile.address if profile else '' }}</textarea>
+        <h3>Education Details</h3>
+        <input type="text" name="qualification" value="{{ profile.qualification if profile else '' }}" placeholder="Highest Qualification">
+        <input type="text" name="institute" value="{{ profile.institute if profile else '' }}" placeholder="Institute / University">
+        <input type="number" name="pass_year" value="{{ profile.pass_year if profile else '' }}" placeholder="Year of Passing">
+        <h3>Professional Details</h3>
+        <select name="experience_type">
+            <option value="">Experience Type</option>
+            <option value="fresher" {{ 'selected' if profile and profile.experience_type == 'fresher' }}>Fresher</option>
+            <option value="experienced" {{ 'selected' if profile and profile.experience_type == 'experienced' }}>Experienced</option>
+        </select>
+        
+        <input type="number" name="total_exp" value="{{ profile.total_exp if profile else '' }}" placeholder="Total Years of Experience">
+        <input type="text" name="company" value="{{ profile.company if profile else '' }}" placeholder="Previous Company Name">
+        <input type="text" name="designation" value="{{ profile.designation if profile else '' }}" placeholder="Job Role / Designation">
+        <h3>Documents</h3>
+        <label>Upload Resume</label>
+        <input type="file" name="resume">
+        <label>Upload ID Proof</label>
+        <input type="file" name="idproof">
+
+        <button type="submit">{{ 'Update Profile' if profile else 'Save Profile' }}</button>
+    </form>
+</div>
+</body>
+</html>

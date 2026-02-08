@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jobseeker Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/jobseekerreg.css') }}">
+</head>
+<body>
+
+<div class="card">
+  <h2>Jobseeker Registration</h2>
+  <form method="POST" action="{{ url_for('register') }}" id="registerForm">
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" id="email" required>
+    </div>
+
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" name="name" id="username" required>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" id="confirmPassword" required>
+    </div>
+
+    <div class="terms">
+      <input type="checkbox" id="agree" required>
+      <span>
+        I agree to the 
+        <a href="#" onclick="openTerms()">Terms & Conditions</a>
+      </span>
+    </div>
+    <button type="button" class="btn" onclick="sendOTP()">Register & Send OTP</button>
+
+    <div class="otp-section" id="otpSection" style="display:none;">
+      <input type="text" id="otpInput" placeholder="Enter OTP">
+      <button type="submit" class="btn" onclick="return verifyOTP()">Verify OTP</button>
+    </div>
+
+  </form>
+
+  <div class="success" id="successMsg" style="display:none;">
+    Registration Successful ✔
+  </div>
+  <div class="login-link">
+    Already have an account? <a href="{{ url_for('jobseeker_login') }}">Login</a>
+  </div>
+</div>
+<div class="modal" id="termsModal">
+  <div class="modal-card">
+    <h3>Terms & Conditions</h3>
+    <p>
+      By registering, you agree that the provided details are accurate.
+      Your email will be used only for verification purposes.
+    </p>
+    <button class="btn" onclick="closeTerms()">Close</button>
+  </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/jobseekerreg.js') }}"></script>
+</body>
+</html>

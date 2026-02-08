@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Jobs | HireNext</title>
+<link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="logo">Hire<span>Next</span></div>
+  <nav>
+    <a href="post-job.html">Post Job</a>
+    <a href="manage-jobs.html">Manage Jobs</a>
+    <a href="view-applications.html">Applications</a>
+  </nav>
+</header>
+
+<div class="container">
+  <h2>Manage Posted Jobs</h2>
+  <div id="jobList"></div>
+</div>
+
+<script>
+
+let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+const box = document.getElementById("jobList");
+
+function renderJobs(){
+  box.innerHTML = "";
+
+  if (!Array.isArray(jobs) || jobs.length === 0) {
+    box.innerHTML = "<p>No jobs posted yet.</p>";
+    return;
+  }
+
+  jobs.forEach(job => {
+    const title = job.title || "Untitled Job";
+    const company = job.company || "Unknown Company";
+    const location = job.location || "Not specified";
+
+    box.innerHTML += `
+      <div class="card">
+        <h3>${title}</h3>
+        <p><b>Company:</b> ${company}</p>
+        <p><b>Location:</b> ${location}</p>
+
+        <button onclick="editJob(${job.id})">Edit</button>
+        <button onclick="deleteJob(${job.id})" class="danger">Delete</button>
+      </div>
+    `;
+  });
+}
+
+
+function editJob(jobId){
+  localStorage.setItem("editJobId", jobId);
+  window.location.href = "post-job.html";
+}
+
+
+
+function deleteJob(jobId){
+  if(!confirm("Delete this job permanently?")) return;
+
+  let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+  jobs = jobs.filter(job => job.id !== jobId);
+
+  localStorage.setItem("jobs", JSON.stringify(jobs));
+  renderJobs();
+}
+
+
+renderJobs();
+</script>
+
+</body>
+</html>

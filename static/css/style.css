@@ -1,0 +1,443 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #f5f7fb;
+  color: #222;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 60px;
+  background: linear-gradient(90deg, #1e3c72, #2a5298); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.logo span {
+  color: #ff9800;
+}
+
+.navbar nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #fff;
+  position: relative;
+}
+
+.navbar nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #ff9800;
+  left: 0;
+  bottom: -5px;
+  transition: 0.3s;
+}
+
+.navbar nav a:hover::after {
+  width: 100%;
+}
+
+.hero {
+  height: calc(100vh - 120px);
+  background: linear-gradient(
+    120deg,
+    #1e3c72,
+    #2a5298,
+    #ff9800
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 46px;
+  margin-bottom: 10px;
+}
+
+.hero h1 span {
+  color: #ffeb3b;
+}
+
+.hero p {
+  font-size: 18px;
+  opacity: 0.95;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #1e3c72;
+  color: #fff;
+  font-size: 14px;
+}
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 25px;
+  }
+
+  .navbar nav a {
+    margin-left: 15px;
+    font-size: 14px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+
+.about {
+  padding: 70px 60px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 32px;
+  color: #1e3c72;
+  margin-bottom: 20px;
+}
+
+.about p {
+  max-width: 900px;
+  margin: 10px auto;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #444;
+}
+
+
+@media (max-width: 768px) {
+  .about {
+    padding: 50px 25px;
+  }
+
+  .about h2 {
+    font-size: 26px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+footer p {
+  margin: 5px 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+.jobs {
+  padding: 70px 60px;
+  text-align: center;
+  background: #f5f7fb;
+}
+
+.companies {
+  padding: 70px 60px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.logo-slider {
+  overflow: hidden;
+  width: 100%;
+}
+
+.logo-track {
+  display: flex;
+  width: fit-content;
+  animation: slide 10s linear infinite;
+}
+
+.company-logo {
+  width: 140px;
+  height: 80px;
+  margin: 0 15px;
+  border: none;
+  border-radius: 8px;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+footer p {
+  margin: 5px 0;
+}
+
+
+@media (max-width: 768px) {
+  .jobs,
+  .companies {
+    padding: 50px 25px;
+  }
+
+  .company-logo {
+    width: 110px;
+    height: 65px;
+  }
+}
+.jobs {
+  padding: 70px 60px;
+  text-align: center;
+  background: #f5f7fb;
+}
+
+.jobs h2 {
+  font-size: 32px;
+  color: #1e3c72;
+  margin-bottom: 30px;
+}
+
+.job-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.job-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.job-card:hover {
+  transform: translateY(-6px);
+}
+
+.job-card h3 {
+  font-size: 18px;
+  color: #1e3c72;
+  margin-bottom: 10px;
+}
+
+.job-card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.job-card span {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 12px;
+  background: #ff9800;
+  color: #fff;
+  border-radius: 20px;
+}
+@media (max-width: 768px) {
+  .jobs {
+    padding: 50px 25px;
+  }
+}
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.company-logo img {
+  filter: grayscale(100%);
+  transition: 0.3s;
+}
+
+.company-logo img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+.logo-slider {
+  overflow: hidden;
+  width: 100%;
+}
+
+.logo-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 15s linear infinite;
+}
+
+.company-logo {
+  width: 140px;
+  height: 80px;
+  margin: 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.logo-slider {
+  overflow: hidden;
+  width: 100%;
+}
+
+.logo-track {
+  display: flex;
+  width: 200%;
+  animation: marquee 25s linear infinite;
+}
+
+.company-logo {
+  width: 140px;
+  height: 80px;
+  margin: 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .navbar nav a {
+    margin: 8px 15px 0 0;
+    font-size: 14px;
+  }
+
+
+  .hero {
+    height: auto;
+    padding: 80px 20px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+ 
+  .about {
+    padding: 50px 20px;
+  }
+
+  .about h2 {
+    font-size: 24px;
+  }
+
+ 
+  .jobs {
+    padding: 50px 20px;
+  }
+
+  .job-cards {
+    grid-template-columns: 1fr; 
+  }
+
+  .job-card {
+    padding: 20px;
+  }
+
+  .companies {
+    padding: 50px 20px;
+  }
+
+  .company-logo {
+    width: 110px;
+    height: 65px;
+    margin: 0 15px;
+  }
+
+  .logo-track {
+    animation-duration: 35s;
+  }
+
+
+  footer {
+    padding: 20px 15px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  .navbar nav a {
+    font-size: 13px;
+  }
+
+  .company-logo {
+    width: 95px;
+    height: 55px;
+  }
+}

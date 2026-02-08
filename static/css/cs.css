@@ -1,0 +1,575 @@
+/* =====================
+   GLOBAL RESET
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #f4f7fb;
+  color: #333;
+}
+
+/* =====================
+   NAVBAR
+===================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 50px;
+  background: linear-gradient(20deg, #0b3c5d, #145e8f);
+  color: white;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 600;
+}
+.logo span {
+  color: orange;
+}
+
+.navbar nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 400;
+}
+
+.navbar nav a:hover {
+  color: orange;
+}
+
+/* =====================
+   HERO
+===================== */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(120deg, #0b3c5d, #328cc1);
+  color: white;
+}
+
+.hero h1 {
+  font-size: 48px;
+}
+
+.hero span {
+  color: orange;
+}
+
+.hero p {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+/* =====================
+   CONTAINER
+===================== */
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* =====================
+   FORMS
+===================== */
+form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  background: orange;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #ff8c00;
+}
+
+/* =====================
+   JOB LIST
+===================== */
+.jobs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 25px;
+  padding: 40px;
+}
+
+.job-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.job-card h3 {
+  color: #0b3c5d;
+}
+
+.job-card button {
+  margin-top: 15px;
+  padding: 8px 14px;
+  background: #328cc1;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* =====================
+   AUTH / MODAL
+===================== */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  width: 360px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* =====================
+   APPLIED DASHBOARD
+===================== */
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.status {
+  color: green;
+  font-weight: bold;
+}
+
+/* =====================
+   FOOTER
+===================== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #0b3c5d;
+  color: white;
+  margin-top: 40px;
+}
+/* =====================
+   JOB FILTERS
+===================== */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+  background: white;
+  margin: 30px auto;
+  width: fit-content;
+  border-radius: 40px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.filters select {
+  padding: 10px 18px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+.filters button {
+  padding: 10px 22px;
+  border-radius: 25px;
+  border: none;
+  background: orange;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background: #ff8c00;
+}
+.progress-box {
+  margin: 15px 0;
+}
+.progress-bar {
+  height: 12px;
+  background: #eee;
+  border-radius: 10px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#1e90ff,#ff9800);
+  border-radius: 10px;
+  transition: width 0.5s;
+}
+.progress-text {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+/* ===== GLOBAL ===== */
+*{
+  box-sizing:border-box;
+}
+
+/* CARD (SAME AS LOGIN) */
+.card {
+  width: 380px;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+.card input,
+.card select {
+  width: 100%;
+  padding: 11px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* CAPTCHA */
+.captcha-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eee;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.captcha {
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.refresh {
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* BUTTON */
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: orange;
+  border: none;
+  color: white;
+  font-size: 15px;
+  border-radius: 22px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #ff9800;
+}
+
+/* LINK */
+.link-text {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.link-text a {
+  color: #0b3c5d;
+  font-weight: bold;
+  text-decoration: none;
+}
+.employer-auth-switch {
+  text-align: center;
+  margin: 25px auto;
+  font-size: 15px;
+}
+
+.employer-auth-switch a {
+  color: orange;
+  font-weight: 600;
+  text-decoration: none;
+  margin: 0 6px;
+}
+
+.employer-auth-switch a:hover {
+  text-decoration: underline;
+}
+.auth-card {
+  max-width: 400px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.auth-card input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.auth-switch {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.auth-switch a {
+  color: orange;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 30px auto;
+}
+
+.auth-toggle button {
+  padding: 10px 22px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  background: #ddd;
+  font-weight: 500;
+}
+
+.auth-toggle .active {
+  background: orange;
+  color: white;
+}
+
+/* FADE IN */
+.fade-in {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* HOVER CARD */
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 50px 20px;
+  background: #f9fafc;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px 40px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.stat-card h2 {
+  color: #0d6efd;
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+.stat-card p {
+  color: #555;
+  font-weight: 500;
+}
+.verified-badge {
+  background: #e7f1ff;
+  color: #0d6efd;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  margin-left: 8px;
+  font-weight: 600;
+}
+.features {
+  display: flex;
+  gap: 25px;
+  padding: 60px 20px;
+  justify-content: center;
+}
+
+.feature-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 280px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.cta {
+  text-align: center;
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  color: white;
+}
+
+.primary-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 26px;
+  background: #fd7e14;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.primary-btn:hover {
+  background: #e96b05;
+}
+*{
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  margin:0;
+  background:#f4f6f9;
+}
+
+/* NAVBAR */
+.navbar{
+  background:#0d6efd;
+  color:white;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.navbar a{
+  color:white;
+  text-decoration:none;
+  margin-left:15px;
+}
+
+/* CONTAINERS */
+.container{
+  padding:30px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom:15px;
+}
+
+/* FORMS */
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  margin-bottom:12px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+textarea{
+  resize:none;
+}
+
+button{
+  padding:10px 16px;
+  background:#fd7e14;
+  color:white;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:#0d6efd;
+}
+
+button.danger{
+  background:#dc3545;
+}
+
+/* AUTH */
+.auth-card{
+  max-width:420px;
+  margin:60px auto;
+}
+
+/* STATUS */
+.status{
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+}
+
+.status.applied{ background:#e7f1ff;color:#0d6efd; }
+.status.shortlisted{ background:#fff3cd;color:#856404; }
+.status.interview{ background:#e0f7fa;color:#00796b; }
+.status.selected{ background:#d4edda;color:#155724; }
+.status.rejected{ background:#fdecea;color:#dc3545; }
+
+

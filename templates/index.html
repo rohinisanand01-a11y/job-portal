@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireNext | Home</title>
+
+  <!-- ✅ FIXED CSS PATH -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <div class="logo">Hire<span>Next</span></div>
+  <nav>
+    <a href="#about">About Us</a>
+    <a href="#jobs">Jobs</a>
+    <a href="#companies">Companies</a>
+    <a href="#contact">Contact</a>
+    <a href="{{ url_for('options') }}">Login / Register</a>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <h1>Find Your <span>Dream Job</span> Today</h1>
+  <p>Connecting talent with top companies</p>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="about">
+  <h2>About HireNext</h2>
+  <p>
+    HireNext is a modern recruitment platform designed to connect job seekers
+    with trusted employers through innovative solutions.
+  </p>
+</section>
+
+<!-- ================= JOBS ================= -->
+<section id="jobs" class="jobs">
+  <h2>Popular Job Roles</h2>
+
+  <div class="job-cards">
+    <div class="job-card"><h3>Frontend Developer</h3><p>HTML, CSS, JavaScript</p></div>
+    <div class="job-card"><h3>Backend Developer</h3><p>Python, Node.js</p></div>
+    <div class="job-card"><h3>UI / UX Designer</h3><p>Figma, Adobe XD</p></div>
+    <div class="job-card"><h3>Data Analyst</h3><p>SQL, Power BI</p></div>
+    <div class="job-card"><h3>Digital Marketer</h3><p>SEO, SEM</p></div>
+    <div class="job-card"><h3>HR Executive</h3><p>Recruitment</p></div>
+  </div>
+</section>
+
+<!-- ================= COMPANIES ================= -->
+<section id="companies" class="companies">
+  <h2>Our Hiring Partners</h2>
+
+  <div class="logo-slider">
+    <div class="logo-track">
+      <!-- ✅ FIXED: Flask static paths (NO backslashes!) -->
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download.png') }}" alt="Company 1">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (1).png') }}" alt="Company 2">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (2).png') }}" alt="Company 3">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (3).png') }}" alt="Company 4">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (4).png') }}" alt="Company 5">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (5).png') }}" alt="Company 6">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/images.png') }}" alt="Company 7">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/images (1).jpg') }}" alt="Company 8">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/images (1).png') }}" alt="Company 9">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/images (2).jpg') }}" alt="Company 10">
+      </div>
+
+      <!-- ✅ DUPLICATES for smooth slider effect -->
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (1).png') }}" alt="Company 2">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (2).png') }}" alt="Company 3">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (3).png') }}" alt="Company 4">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (4).png') }}" alt="Company 5">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/download (5).png') }}" alt="Company 6">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/images.png') }}" alt="Company 7">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/images (1).jpg') }}" alt="Company 8">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/images (1).png') }}" alt="Company 9">
+      </div>
+      <div class="company-logo">
+        <img src="{{ url_for('static', filename='img/images (2).jpg') }}" alt="Company 10">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="contact">
+  <p><strong>Contact Us</strong></p>
+  <p>Email: support@hirenext.com</p>
+  <p>Phone: +91 98765 43210</p>
+  <p>Location: India</p>
+  <p style="margin-top:10px;">© 2026 HireNext</p>
+</footer>
+
+</body>
+</html>
