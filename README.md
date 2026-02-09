@@ -2,3 +2,8 @@ Our Job Listing Portal is a dynamic web application that connects job seekers wi
 ⚠️ Note  
 This is a Flask application. Templates must be rendered through Flask routes.
 Do not open HTML files directly from the templates folder.
+Tech Stack used:
+Backend: Python (Flask)
+Frontend: HTML, CSS
+Database: MySQL 
+Version Control: Git & GitHub
