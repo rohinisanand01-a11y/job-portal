@@ -3,28 +3,23 @@ import mysql.connector
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from dotenv import load_dotenv
 
-# Step 1: Load .env file
-load_dotenv()
-
-# Step 2: Create Flask app and use secret key from .env
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "fallback_secret") 
+app.secret_key = "jobportal_secret_2026_secure_key_change_this_in_production"
 
 UPLOAD_FOLDER = "uploads"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
-# Step 4: Database connection using .env
+
 def get_db_connection():
     return mysql.connector.connect(
-        host=os.getenv("DB_HOST"),             # DB host from .env
-        user=os.getenv("DB_USER"),             # DB user from .env
-        password=os.getenv("DB_PASSWORD"),     # DB password from .env
-        database=os.getenv("DB_NAME"),         # DB name from .env
-        port=int(os.getenv("DB_PORT", 3306))   # DB port, default 3306
+        host="localhost",
+        user="root",
+        password="", 
+        database="amdox_db"
     )
 
 
